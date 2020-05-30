@@ -35,14 +35,14 @@ provider:
 
 functions:
   symbols:
-    handler: src/handler.symbols
+    handler: src.handler.symbols
     events:
       - http:
           path: /ref-data/symbols
           method: get
           cors: true
   quote:
-    handler: src/handler.quote
+    handler: src.handler.quote
     events:
       - http:
           path: /stock/{symbol}/quote

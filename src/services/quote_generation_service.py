@@ -4,7 +4,7 @@ from decimal import Decimal
 
 from boto3.dynamodb.conditions import Key
 
-from .aws_service import quoteTable
+from . import aws_service
 
 
 # Get the next quote from the current quote
@@ -39,7 +39,7 @@ def get_previous_quote(symbol: str) -> dict:
     print('Attempting to retrieve last record from the quote table for {0}'.format(symbol))
 
     try:
-        return quoteTable.query(
+        return aws_service.quoteTable.query(
             KeyConditionExpression=Key('symbol').eq(symbol),
             Limit=1, # Get just one entry
             ScanIndexForward=False # This will get item that is at the top in reverse sorted order on the sort key (iso timestamps are sorted like numbers do to their ordering)
