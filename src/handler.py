@@ -1,7 +1,6 @@
 import simplejson as json
 
-from services.quote_generation_service import generate_updated_quote
-from services.symbols_service import get_all_symbols
+from .services import quote_generation_service, symbols_service
 
 
 def symbols(event, context):
@@ -12,8 +11,9 @@ def symbols(event, context):
         'headers': {
             'Content-Type': 'application/json',
         },
-        "body": json.dumps(get_all_symbols())
+        "body": json.dumps(symbols_service.get_all_symbols())
     }
+
 
 def quote(event, context):
     print(event)
@@ -21,7 +21,7 @@ def quote(event, context):
     # Extract the quote from the path parameter -- should be on the event
     symbol = event['pathParameters']['symbol']
 
-    updated_quote = generate_updated_quote(symbol=symbol)
+    updated_quote = quote_generation_service.generate_updated_quote(symbol=symbol)
 
     print('New quote is ' + str(updated_quote))
 
