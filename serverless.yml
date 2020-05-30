@@ -1,0 +1,57 @@
+# Welcome to Serverless!
+#
+# This file is the main config file for your service.
+# It's very minimal at this point and uses default values.
+# You can always add more config options for more control.
+# We've included some commented out config examples here.
+# Just uncomment any of them to get that config option.
+#
+# For full config options, check the docs:
+#    docs.serverless.com
+#
+# Happy Coding!
+
+service: mock-iex-data-source
+
+plugins:
+  - serverless-python-requirements
+  - serverless-offline-python
+provider:
+  name: aws
+  region: us-east-2
+  runtime: python3.8
+  environment:
+    SLS_DEBUG: true
+    PYTHON_ENV: ${self:custom.myStage}
+  iamRoleStatements:
+    - Effect: "Allow"
+      Action:
+        - dynamodb:Query
+        - dynamodb:Scan
+        - dynamodb:GetItem
+      Resource:
+        - !ImportValue FinancialDataQuotesArn-${self:custom.myStage}
+        - !ImportValue FinancialDataSubscriptionsArn-${self:custom.myStage}
+
+functions:
+  symbols:
+    handler: src/handler.symbols
+    events:
+      - http:
+          path: /ref-data/symbols
+          method: get
+          cors: true
+  quote:
+    handler: src/handler.quote
+    events:
+      - http:
+          path: /stock/{symbol}/quote
+          method: get
+          cors: true
+
+custom:
+  pythonRequirements:
+    dockerizePip: non-linux
+  serverless-offline:
+    port: 8000
+  myStage: ${opt:stage, self:provider.stage}
