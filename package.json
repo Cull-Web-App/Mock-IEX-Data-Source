@@ -4,7 +4,7 @@
   "version": "0.1.0",
   "dependencies": {},
   "scripts": {
-    "deploy": sls deploy -s prod
+    "deploy": "sls deploy -s prod"
   },
   "devDependencies": {
     "serverless": "^1.71.3",
