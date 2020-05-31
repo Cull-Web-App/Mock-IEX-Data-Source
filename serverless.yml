@@ -32,6 +32,7 @@ provider:
       Resource:
         - !ImportValue FinancialDataQuotesArn-${self:custom.myStage}
         - !ImportValue FinancialDataSubscriptionsArn-${self:custom.myStage}
+        - !ImportValue FinancialDataSymbolsArn-${self:custom.myStage}
 
 functions:
   symbols:
