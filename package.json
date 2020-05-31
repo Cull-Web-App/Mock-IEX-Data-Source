@@ -3,6 +3,9 @@
   "description": "",
   "version": "0.1.0",
   "dependencies": {},
+  "scripts": {
+    "deploy": sls deploy -s prod
+  },
   "devDependencies": {
     "serverless": "^1.71.3",
     "serverless-offline-python": "^3.22.2",

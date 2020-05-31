@@ -31,7 +31,7 @@ def get_next_quote(previous_quote: dict) -> dict:
         'low': low_price,
         'high': high_price,
         'volume': Decimal(previous_quote['volume'] * (1 + random_percent_change_volume)),
-        'dateTime': new_date
+        'latestTime': new_date
     }
 
 def get_previous_quote(symbol: str) -> dict:

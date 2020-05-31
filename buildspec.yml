@@ -1,0 +1,26 @@
+version: 0.2
+
+phases:
+  install:
+    runtime-versions:
+      python: 3.8
+    commands:
+      - echo Installing Node dependencies
+      - npm install
+      - echo Node Dependencies installed successfully
+  build:
+    commands:
+      - echo Running serverless deploy
+      - npm run deploy
+  post_build:
+    commands:
+      - echo Build completed successfully
+
+cache:
+  paths:
+    - 'node_modules/**/*'
+
+# Where the build artifacts are located -- is this necessary for the pipeline?
+artifacts:
+  files:
+    - '**/*'

@@ -2,18 +2,8 @@ from . import aws_service
 
 
 def get_all_symbols():
-    # Simply get all the uniq symbols in the quote table and return them
-    print('Attempting to get all unique symbols from the quote table')
+    # Simply get all the uniq symbols in the symbols table and return them
+    print('Attempting to get all unique symbols from the symbol table')
 
-    scan_response = aws_service.quoteTable.scan(ProjectionExpression='symbol')['Items']
-
-    # Get only the uniq symbols from the scan -- not sure if this is the best method...
-    # map returns iterators not lists in python!
-    return list(
-        map(
-            lambda symbol: { 'symbol': symbol },
-            set(
-                map(lambda item: item['symbol'], scan_response)
-            )
-        )
-    )
+    # Bascially just return the entire symbols table to the user
+    return aws_service.symbolsTable.scan()['Items']
